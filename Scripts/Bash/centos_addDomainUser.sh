@@ -31,7 +31,7 @@ systemctl restart chronyd
 
 timedatectl set-ntp true
 
-realm -v join YONDER.LOCAL -U $adminuser@YONDER.LOCAL --computer-ou=OU=.Linux,OU=Computers,OU=Yonder --membership-software=adcli
+realm -v join DOMAIN -U $adminuser@DOMAIN --computer-ou=OU=<COMPUTER_PATH> --membership-software=adcli
 
 rm -f /etc/sssd/sssd.conf
 
@@ -40,13 +40,13 @@ touch /etc/sssd/sssd.conf
 chmod 0600 /etc/sssd/sssd.conf
 
 echo "[sssd]
-domains = yonder.local
+domains = <DOMAIN>
 config_file_version = 2
 services = nss, pam
 
 [domain/yonder.local]
-ad_domain = yonder.local
-krb5_realm = YONDER.LOCAL
+ad_domain = <DOMAIN>
+krb5_realm = <DOMAIN>
 realmd_tags = manages-system joined-with-adcli
 cache_credentials = True
 id_provider = ad
